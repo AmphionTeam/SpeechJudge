@@ -58,7 +58,7 @@ def extract_rating(result):
     return None, result
 
 
-def compare_wavs(processor, model, target_text, wav_path_a, wav_path_b, is_omni=False):
+def compare_wavs(processor, model, target_text, wav_path_a, wav_path_b, is_omni=True):
     conversion = build_cot_conversation(target_text, wav_path_a, wav_path_b)
     omni_inputs = build_qwen_omni_inputs(processor, conversion)
 

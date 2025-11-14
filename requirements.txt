@@ -1,0 +1,3 @@
+pip install transformers==4.52.3
+pip install accelerate==1.10.0
+pip install qwen-omni-utils==0.0.8

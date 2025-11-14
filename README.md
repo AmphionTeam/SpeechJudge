@@ -1,0 +1,95 @@
+# SpeechJudge: Towards Human-Level Judgment for Speech Naturalness
+
+[![Paper](https://img.shields.io/badge/Paper-arXiv:2511.07931-b31b1b.svg)](https://arxiv.org/abs/2511.07931)
+[![Project Page](https://img.shields.io/badge/Project-Page-blue.svg)](https://speechjudge.github.io/)
+
+Aligning large generative models with human feedback is a critical challenge. In speech synthesis, this is particularly pronounced due to the lack of a large-scale human preference dataset, which hinders the development of models that truly align with human perception. To address this, we introduce **SpeechJudge**, a comprehensive suite comprising a dataset, a benchmark, and a reward model centered on **naturalness**—one of the most fundamental subjective metrics for speech synthesis:
+
+- **SpeechJudge-Data**: a large-scale human feedback corpus of 99K speech pairs. The dataset is constructed using a diverse set of advanced zero-shot text-to-speech (TTS) models across diverse speech styles and multiple languages, with human annotations for both intelligibility and naturalness preference. 
+- **SpeechJudge-Eval**: a challenging benchmark for speech naturalness judgment.
+- **SpeechJudge-GRM**: a generative reward model (GRM) based on Qwen2.5-Omni-7B. It is trained on SpeechJudge-Data via a two-stage post-training process: Supervised Fine-Tuning (SFT) with Chain-of-Thought rationales followed by Reinforcement Learning (RL) with GRPO on challenging cases.
+
+## TODO
+
+We plan to release the following components in the future:
+
+- [ ] **SpeechJudge-Data**: Release the 99K speech pairs dataset with human annotations
+- [ ] **SpeechJudge-Eval**: Release the evaluation benchmark for speech naturalness judgment
+
+Stay tuned for updates!
+
+## SpeechJudge-GRM
+
+### Features
+
+- **Automated Naturalness Evaluation**: Compare two TTS audio outputs and receive quantitative scores
+- **Multi-Criteria Assessment**: Evaluates based on:
+  - Prosody and Intonation
+  - Pacing and Rhythm
+  - Articulation and Clarity
+  - Overall Naturalness
+- **Chain-of-Thought Reasoning**: Provides explainable analysis with detailed reasoning process
+- **Inference-time Scaling**: Optional inference-time scaling for enhanced judgment accuracy。
+
+## Installation
+
+1. Clone this repository:
+```bash
+git clone https://github.com/AmphionTeam/SpeechJudge.git
+cd SpeechJudge
+```
+
+2. Install the required dependencies:
+```bash
+pip install transformers==4.52.3
+pip install accelerate==1.10.0
+pip install qwen-omni-utils==0.0.8
+```
+
+## Usage
+
+### Basic Usage
+
+The main entry point is `infer/main_grm.py`. Here's a basic example:
+
+```python
+from infer.main_grm import load_model, compare_wavs
+
+# Load the model
+model_path = "pretrained/SpeechJudge-GRM"
+model, processor = load_model(model_path)
+
+# The compared two speeches (and the corresponding text)
+target_text = "Your target text here"
+wav_path_a = "path/to/audio_a.wav"
+wav_path_b = "path/to/audio_b.wav"
+
+# Compare the two audio outputs
+rating, result = compare_wavs(processor, model, target_text, wav_path_a, wav_path_b)
+
+print(f"Output A score: {rating['output_a']}")
+print(f"Output B score: {rating['output_b']}")
+print(f"\nDetailed Analysis:\n{result}")
+```
+
+### Running the Example
+
+The repository includes example audio files in `infer/examples/`. To run the provided example:
+
+```bash
+cd infer
+python main_grm.py
+```
+
+## Citation
+
+If you use SpeechJudge in your research, please cite our paper:
+
+```bibtex
+@article{zhang2025speechjudge,
+  title={SpeechJudge: Towards Human-Level Judgment for Speech Naturalness},
+  author={Zhang, Xueyao and Wang, Chaoren and Liao, Huan and Li, Ziniu and Wang, Yuancheng and Wang, Li and Jia, Dongya and Chen, Yuanzhe and Li, Xiulin and Chen, Zhuo and Wu, Zhizheng},
+  journal={arXiv preprint arXiv:2511.07931},
+  year={2025}
+}
+```

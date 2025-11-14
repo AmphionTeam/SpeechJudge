@@ -13,9 +13,11 @@ Aligning large generative models with human feedback is a critical challenge. In
 
 We plan to release the following components in the future:
 
-- [ ] **SpeechJudge-Data**: Release the 99K speech pairs dataset with human annotations
-- [ ] **SpeechJudge-Eval**: Release the evaluation pipeline for benchmarking AudioLLMs
-- [ ] **SpeechJudge-GRM**: Add inference-time scaling support via vLLM
+- [ ] **SpeechJudge-Data**: Release the 99K speech pairs dataset with human annotations.
+- [ ] **SpeechJudge-Eval**: Release the evaluation pipeline for benchmarking AudioLLMs.
+- [ ] **SpeechJudge-GRM**: 
+    - [x] Inference pipeline for pairwise speech comparison.
+    - [ ] Add inference-time scaling support via vLLM.
 
 Stay tuned for updates!
 

@@ -3,7 +3,7 @@
 [![Paper](https://img.shields.io/badge/Paper-arXiv:2511.07931-b31b1b.svg)](https://arxiv.org/abs/2511.07931)
 [![Project Page](https://img.shields.io/badge/Project-Page-blue.svg)](https://speechjudge.github.io/)
 
-Aligning large generative models with human feedback is a critical challenge. In speech synthesis, this is particularly pronounced due to the lack of a large-scale human preference dataset, which hinders the development of models that truly align with human perception. To address this, we introduce **SpeechJudge**, a comprehensive suite comprising a dataset, a benchmark, and a reward model centered on **naturalness**—one of the most fundamental subjective metrics for speech synthesis:
+Aligning large generative models with human feedback is a critical challenge. In speech synthesis, this is particularly pronounced due to the lack of a large-scale human preference dataset, which hinders the development of models that truly align with human perception. To address this, we introduce **SpeechJudge**, a comprehensive suite comprising a dataset, a benchmark, and a reward model centered on ***naturalness***—one of the most fundamental subjective metrics for speech synthesis:
 
 - **SpeechJudge-Data**: a large-scale human feedback corpus of 99K speech pairs. The dataset is constructed using a diverse set of advanced zero-shot text-to-speech (TTS) models across diverse speech styles and multiple languages, with human annotations for both intelligibility and naturalness preference. 
 - **SpeechJudge-Eval**: a challenging benchmark for speech naturalness judgment.
@@ -14,7 +14,8 @@ Aligning large generative models with human feedback is a critical challenge. In
 We plan to release the following components in the future:
 
 - [ ] **SpeechJudge-Data**: Release the 99K speech pairs dataset with human annotations
-- [ ] **SpeechJudge-Eval**: Release the evaluation benchmark for speech naturalness judgment
+- [ ] **SpeechJudge-Eval**: Release the evaluation pipeline for benchmarking AudioLLMs
+- [ ] **SpeechJudge-GRM**: Add inference-time scaling support via vLLM
 
 Stay tuned for updates!
 
@@ -22,8 +23,8 @@ Stay tuned for updates!
 
 ### Features
 
-- **Automated Naturalness Evaluation**: Compare two TTS audio outputs and receive quantitative scores
-- **Multi-Criteria Assessment**: Evaluates based on:
+- **Automated Naturalness Evaluation**: Compare two TTS audio outputs and receive quantitative scores.
+- **Multi-Criteria Speech Assessment**: Evaluates based on:
   - Prosody and Intonation
   - Pacing and Rhythm
   - Articulation and Clarity

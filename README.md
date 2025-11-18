@@ -15,7 +15,7 @@ We plan to release the following components in the future:
 
 - [ ] **SpeechJudge-Data**: Release the 99K speech pairs dataset with human annotations.
 - [ ] **SpeechJudge-Eval**: Release the evaluation pipeline for benchmarking AudioLLMs.
-- **SpeechJudge-GRM**: 
+- [x] **SpeechJudge-GRM**: 
     - [x] Inference pipeline for pairwise speech comparison.
     - [x] Add inference-time scaling support via vLLM.
 

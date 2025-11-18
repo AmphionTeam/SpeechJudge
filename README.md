@@ -58,8 +58,8 @@ The main entry point is `infer/main_grm.py`. Here's a basic example:
 ```python
 from infer.main_grm import load_model, compare_wavs
 
-# Load the model
-model_path = "pretrained/SpeechJudge-GRM"
+# Load the SpeechJudge-GRM model (The checkpoint will be downloaded from https://huggingface.co/RMSnow/SpeechJudge-GRM.)
+model_path = "pretrained/SpeechJudge-GRM"  # The local dir to save the model
 model, processor = load_model(model_path)
 
 # The compared two speeches (and the corresponding text)

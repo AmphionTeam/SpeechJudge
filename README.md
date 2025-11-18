@@ -15,9 +15,9 @@ We plan to release the following components in the future:
 
 - [ ] **SpeechJudge-Data**: Release the 99K speech pairs dataset with human annotations.
 - [ ] **SpeechJudge-Eval**: Release the evaluation pipeline for benchmarking AudioLLMs.
-- [ ] **SpeechJudge-GRM**: 
+- **SpeechJudge-GRM**: 
     - [x] Inference pipeline for pairwise speech comparison.
-    - [ ] Add inference-time scaling support via vLLM.
+    - [x] Add inference-time scaling support via vLLM.
 
 Stay tuned for updates!
 
@@ -45,8 +45,8 @@ cd SpeechJudge
 2. Install the required dependencies:
 ```bash
 pip install transformers==4.52.3
-pip install accelerate==1.10.0
-pip install qwen-omni-utils==0.0.8
+pip install accelerate
+pip install qwen-omni-utils
 ```
 
 ## Usage
@@ -82,6 +82,15 @@ The repository includes example audio files in `infer/examples/`. To run the pro
 ```bash
 cd infer
 python main_grm.py
+```
+
+### Inference with vLLM
+
+For enhanced performance and efficiency, SpeechJudge-GRM also supports inference via vLLM, which enables inference-time scaling for improved judgment accuracy. The implementation follows [vLLM's official documentation for Qwen2.5-Omni](https://docs.vllm.ai/en/v0.9.2/examples/offline_inference/qwen2_5_omni.html). To run the example with vLLM:
+
+```bash
+cd infer
+python main_grm_vllm.py
 ```
 
 ## Citation

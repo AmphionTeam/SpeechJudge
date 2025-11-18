@@ -1,6 +1,3 @@
-import os
-
-
 def download_speechjudge_grm(local_dir):
     from huggingface_hub import snapshot_download
 
@@ -125,3 +122,25 @@ def build_swift_grpo_conversation(
     }
 
     return conversation
+
+
+def count_parameters(model):
+    total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    if total_params < 1e6:
+        return f"{total_params} params"  # Parameters
+    elif total_params < 1e9:
+        return f"{total_params / 1e6:.5f} M"  # Millions
+    else:
+        return f"{total_params / 1e9:.5f} B"  # Billions
+
+
+def extract_rating(result):
+    import re
+
+    regex = r"Output A: (\d+(?:\.\d+)?).*?Output B: (\d+(?:\.\d+)?)"
+    matches = re.findall(regex, result.replace("**", ""), re.DOTALL)
+    if matches:
+        rating = {"output_a": matches[-1][0], "output_b": matches[-1][1]}
+        return rating, result
+
+    return None, result

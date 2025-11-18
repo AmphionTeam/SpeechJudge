@@ -5,13 +5,13 @@ from transformers import (
     Qwen2_5OmniProcessor,
 )
 
-import re
-import sys
 
 from utils import (
     build_cot_conversation,
     build_qwen_omni_inputs,
     download_speechjudge_grm,
+    count_parameters,
+    extract_rating,
 )
 
 
@@ -25,37 +25,17 @@ def load_model(model_path, is_omni=True):
     download_speechjudge_grm(model_path)
 
     print("Loading model...")
+    processor = Qwen2_5OmniProcessor.from_pretrained(model_path)
     model = qwen_cls.from_pretrained(
         model_path,
         torch_dtype=torch.bfloat16,
         device_map="auto",
         attn_implementation="flash_attention_2",
     )
-    processor = Qwen2_5OmniProcessor.from_pretrained(model_path)
 
     # print(model)
     print(f"#Params of Model: {count_parameters(model)}")
     return model, processor
-
-
-def count_parameters(model):
-    total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    if total_params < 1e6:
-        return f"{total_params} params"  # Parameters
-    elif total_params < 1e9:
-        return f"{total_params / 1e6:.5f} M"  # Millions
-    else:
-        return f"{total_params / 1e9:.5f} B"  # Billions
-
-
-def extract_rating(result):
-    regex = r"Output A: (\d+(?:\.\d+)?).*?Output B: (\d+(?:\.\d+)?)"
-    matches = re.findall(regex, result.replace("**", ""), re.DOTALL)
-    if matches:
-        rating = {"output_a": matches[-1][0], "output_b": matches[-1][1]}
-        return rating, result
-
-    return None, result
 
 
 def compare_wavs(processor, model, target_text, wav_path_a, wav_path_b, is_omni=True):
@@ -100,5 +80,12 @@ if __name__ == "__main__":
     wav_path_b = "examples/wav_b.wav"
 
     rating, result = compare_wavs(processor, model, target_text, wav_path_a, wav_path_b)
-    print(rating)
+
+    score_A = rating["output_a"]
+    score_B = rating["output_b"]
+    final_result = "A" if score_A > score_B else "B" if score_A < score_B else "Tie"
+
+    print(f"\n[Final Result] {final_result}")
+    print(f"Score of Audio A: {score_A}, Score of Audio B: {score_B}")
+    print("\n", "-" * 15, f"Details", "-" * 15, "\n")
     print(result)

@@ -1,7 +1,10 @@
 # SpeechJudge: Towards Human-Level Judgment for Speech Naturalness
 
-[![Paper](https://img.shields.io/badge/Paper-arXiv:2511.07931-b31b1b.svg)](https://arxiv.org/abs/2511.07931)
-[![Project Page](https://img.shields.io/badge/Project-Page-blue.svg)](https://speechjudge.github.io/)
+[![arXiv](https://img.shields.io/badge/arXiv-2511.07931-b31b1b.svg)](https://arxiv.org/abs/2511.07931)
+[![Demo Page](https://img.shields.io/badge/Project-Demo_Page-blue)](https://speechjudge.github.io/)
+[![GitHub](https://img.shields.io/badge/GitHub-SpeechJudge-black?logo=github)](https://github.com/AmphionTeam/SpeechJudge)
+[![Model](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-yellow)](https://huggingface.co/RMSnow/SpeechJudge-GRM)
+[![Data](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Data-yellow)](https://huggingface.co/datasets/RMSnow/SpeechJudge-Data)
 
 Aligning large generative models with human feedback is a critical challenge. In speech synthesis, this is particularly pronounced due to the lack of a large-scale human preference dataset, which hinders the development of models that truly align with human perception. To address this, we introduce **SpeechJudge**, a comprehensive suite comprising a dataset, a benchmark, and a reward model centered on ***naturalness***—one of the most fundamental subjective metrics for speech synthesis:
 
@@ -13,11 +16,12 @@ Aligning large generative models with human feedback is a critical challenge. In
 
 We plan to release the following components in the future:
 
-- [ ] **SpeechJudge-Data**: Release the 99K speech pairs dataset with human annotations.
+- [x] **SpeechJudge-Data**: Release the 99K speech pairs dataset with human annotations.
 - [ ] **SpeechJudge-Eval**: Release the evaluation pipeline for benchmarking AudioLLMs.
 - [x] **SpeechJudge-GRM**: 
     - [x] Inference pipeline for pairwise speech comparison.
     - [x] Add inference-time scaling support via vLLM.
+    - [ ] The two-stage "SFT+RL" training pipeline.
 
 Stay tuned for updates!
 
@@ -34,7 +38,7 @@ Stay tuned for updates!
 - **Chain-of-Thought Reasoning**: Provides explainable analysis with detailed reasoning process
 - **Inference-time Scaling**: Optional inference-time scaling for enhanced judgment accuracy。
 
-## Installation
+### Installation
 
 1. Clone this repository:
 ```bash
@@ -49,9 +53,9 @@ pip install accelerate
 pip install qwen-omni-utils
 ```
 
-## Usage
+### Usage
 
-### Basic Usage
+#### Basic Usage
 
 The main entry point is `infer/main_grm.py`. Here's a basic example:
 
@@ -75,7 +79,7 @@ print(f"Output B score: {rating['output_b']}")
 print(f"\nDetailed Analysis:\n{result}")
 ```
 
-### Running the Example
+#### Running the Example
 
 The repository includes example audio files in `infer/examples/`. To run the provided example:
 
@@ -84,13 +88,36 @@ cd infer
 python main_grm.py
 ```
 
-### Inference with vLLM
+#### Inference with vLLM
 
 For enhanced performance and efficiency, SpeechJudge-GRM also supports inference via vLLM, which enables inference-time scaling for improved judgment accuracy. The implementation follows [vLLM's official documentation for Qwen2.5-Omni](https://docs.vllm.ai/en/v0.9.2/examples/offline_inference/qwen2_5_omni.html). To run the example with vLLM:
 
 ```bash
 cd infer
 python main_grm_vllm.py
+```
+
+## SpeechJudge-Data
+
+The dataset is organized into 4 splits. You can load specific splits based on your needs:
+
+| Split | Description |
+| :--- | :--- |
+| **train** | Standard training set for reward model training. |
+| **dev** | Validation set for hyperparameter tuning. |
+| **test** | **SpeechJudge-Eval Benchmark**. This split contains only samples with **Full-Agreement (FA)** among different human raters, serving as a high-quality ground truth for benchmarking evaluation metrics. |
+| **other** | Additional data (such as the `Tie` samples) not included in the primary splits. |
+
+The dataset is released at [HuggingFace](https://huggingface.co/datasets/RMSnow/SpeechJudge-Data). You can load the dataset directly using the Hugging Face `datasets` library.
+
+```python
+from datasets import load_dataset
+
+# Load the entire dataset (all splits)
+ds = load_dataset("RMSnow/SpeechJudge-Data")
+
+# Load a specific split, e.g., the SpeechJudge-Eval benchmark (test split)
+test_ds = load_dataset("RMSnow/SpeechJudge-Data", split="test")
 ```
 
 ## Citation

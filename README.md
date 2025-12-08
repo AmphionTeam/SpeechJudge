@@ -16,8 +16,7 @@ Aligning large generative models with human feedback is a critical challenge. In
 
 We plan to release the following components in the future:
 
-- [x] **SpeechJudge-Data**: Release the 99K speech pairs dataset with human annotations.
-- [ ] **SpeechJudge-Eval**: Release the evaluation pipeline for benchmarking AudioLLMs.
+- [x] **SpeechJudge-Data** and **SpeechJudge-Eval**: Release the 99K speech pairs dataset with human annotations.
 - [x] **SpeechJudge-GRM**: 
     - [x] Inference pipeline for pairwise speech comparison.
     - [x] Add inference-time scaling support via vLLM.
@@ -97,18 +96,11 @@ cd infer
 python main_grm_vllm.py
 ```
 
-## SpeechJudge-Data
+## SpeechJudge-Data and SpeechJudge-Eval
 
-The dataset is organized into 4 splits. You can load specific splits based on your needs:
+The SpeechJudge-Data and SpeechJudge-Eval datasets are released at HuggingFace (see the [dataset page](https://huggingface.co/datasets/RMSnow/SpeechJudge-Data) for detailed documentation). 
 
-| Split | Description |
-| :--- | :--- |
-| **train** | Standard training set for reward model training. |
-| **dev** | Validation set for hyperparameter tuning. |
-| **test** | **SpeechJudge-Eval Benchmark**. This split contains only samples with **Full-Agreement (FA)** among different human raters, serving as a high-quality ground truth for benchmarking evaluation metrics. |
-| **other** | Additional data (such as the `Tie` samples) not included in the primary splits. |
-
-The dataset is released at [HuggingFace](https://huggingface.co/datasets/RMSnow/SpeechJudge-Data). You can load the dataset directly using the Hugging Face `datasets` library.
+You can load the dataset directly using the Hugging Face `datasets` library:
 
 ```python
 from datasets import load_dataset

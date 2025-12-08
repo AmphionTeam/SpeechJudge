@@ -24,6 +24,23 @@ We plan to release the following components in the future:
 
 Stay tuned for updates!
 
+
+## SpeechJudge-Data and SpeechJudge-Eval
+
+The SpeechJudge-Data and SpeechJudge-Eval datasets are released at HuggingFace (see the [dataset page](https://huggingface.co/datasets/RMSnow/SpeechJudge-Data) for detailed documentation). 
+
+You can load the dataset directly using the Hugging Face `datasets` library:
+
+```python
+from datasets import load_dataset
+
+# Load the entire dataset (all splits)
+ds = load_dataset("RMSnow/SpeechJudge-Data")
+
+# Load a specific split, e.g., the SpeechJudge-Eval benchmark (test split)
+test_ds = load_dataset("RMSnow/SpeechJudge-Data", split="test")
+```
+
 ## SpeechJudge-GRM
 
 ### Features
@@ -94,22 +111,6 @@ For enhanced performance and efficiency, SpeechJudge-GRM also supports inference
 ```bash
 cd infer
 python main_grm_vllm.py
-```
-
-## SpeechJudge-Data and SpeechJudge-Eval
-
-The SpeechJudge-Data and SpeechJudge-Eval datasets are released at HuggingFace (see the [dataset page](https://huggingface.co/datasets/RMSnow/SpeechJudge-Data) for detailed documentation). 
-
-You can load the dataset directly using the Hugging Face `datasets` library:
-
-```python
-from datasets import load_dataset
-
-# Load the entire dataset (all splits)
-ds = load_dataset("RMSnow/SpeechJudge-Data")
-
-# Load a specific split, e.g., the SpeechJudge-Eval benchmark (test split)
-test_ds = load_dataset("RMSnow/SpeechJudge-Data", split="test")
 ```
 
 ## Citation

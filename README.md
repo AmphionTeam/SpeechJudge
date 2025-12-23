@@ -1,10 +1,12 @@
 # SpeechJudge: Towards Human-Level Judgment for Speech Naturalness
 
-[![arXiv](https://img.shields.io/badge/arXiv-2511.07931-b31b1b.svg)](https://arxiv.org/abs/2511.07931)
-[![Demo Page](https://img.shields.io/badge/Project-Demo_Page-blue)](https://speechjudge.github.io/)
-[![GitHub](https://img.shields.io/badge/GitHub-SpeechJudge-black?logo=github)](https://github.com/AmphionTeam/SpeechJudge)
-[![Model](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-yellow)](https://huggingface.co/RMSnow/SpeechJudge-GRM)
-[![Data](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Data-yellow)](https://huggingface.co/datasets/RMSnow/SpeechJudge-Data)
+[![Paper](https://img.shields.io/badge/PAPER-b31b1b?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2511.07931)
+[![Demo](https://img.shields.io/badge/DEMO_PAGE-1f6feb?style=for-the-badge&logo=googlechrome&logoColor=white)](https://speechjudge.github.io/)
+[![GitHub](https://img.shields.io/badge/GITHUB-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AmphionTeam/SpeechJudge)
+[![HF Model](https://img.shields.io/badge/HF_MODEL-FFD14D?style=for-the-badge&logo=huggingface&logoColor=black)](https://huggingface.co/RMSnow/SpeechJudge-GRM)
+[![HF Data](https://img.shields.io/badge/HF_DATA-FFD14D?style=for-the-badge&logo=huggingface&logoColor=black)](https://huggingface.co/datasets/RMSnow/SpeechJudge-Data)
+[![HF Space](https://img.shields.io/badge/HF_SPACE-FFD14D?style=for-the-badge&logo=huggingface&logoColor=black)](https://huggingface.co/spaces/yuantuo666/SpeechJudge-GRM)
+
 
 Aligning large generative models with human feedback is a critical challenge. In speech synthesis, this is particularly pronounced due to the lack of a large-scale human preference dataset, which hinders the development of models that truly align with human perception. To address this, we introduce **SpeechJudge**, a comprehensive suite comprising a dataset, a benchmark, and a reward model centered on ***naturalness***—one of the most fundamental subjective metrics for speech synthesis:
 

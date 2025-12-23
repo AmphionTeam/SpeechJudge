@@ -9,7 +9,7 @@ from transformers import (
 from utils import (
     build_cot_conversation,
     build_qwen_omni_inputs,
-    download_speechjudge_grm,
+    download_hugginface_model,
     count_parameters,
     extract_rating,
 )
@@ -21,8 +21,7 @@ def load_model(model_path, is_omni=True):
     else:
         qwen_cls = Qwen2_5OmniThinkerForConditionalGeneration
 
-    print("Downloading model to {}...".format(model_path))
-    download_speechjudge_grm(model_path)
+    download_hugginface_model("RMSnow/SpeechJudge-GRM", model_path)
 
     print("Loading model...")
     processor = Qwen2_5OmniProcessor.from_pretrained(model_path)

@@ -1,9 +1,9 @@
-def download_speechjudge_grm(local_dir):
+def download_hugginface_model(repo_id, local_dir):
     from huggingface_hub import snapshot_download
 
-    # Model #
+    print("Downloading model {} to {}...".format(repo_id, local_dir))
     snapshot_download(
-        repo_id="RMSnow/SpeechJudge-GRM",
+        repo_id=repo_id,
         repo_type="model",
         local_dir=local_dir,
         resume_download=True,
@@ -41,6 +41,36 @@ def build_qwen_omni_inputs(processor, conversations):
         use_audio_in_video=USE_AUDIO_IN_VIDEO,
     )
     return inputs
+
+
+def build_rm_conversation(wav_path, target_text):
+    return [
+        {
+            "role": "system",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "You are Qwen, a virtual human developed by the Qwen Team, Alibaba Group, capable of perceiving auditory and visual inputs, as well as generating text and speech.",
+                }
+            ],
+        },
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "We are evaluating the naturalness of Text-to-Speech model's output. The model need to generate a natural speech for the target text.",
+                },
+                {"type": "text", "text": f"Target text: {target_text}"},
+                {"type": "text", "text": "Output:"},
+                {"type": "audio", "audio": wav_path},
+                {
+                    "type": "text",
+                    "text": "Analysis the output above, and score it with number from 1 to 10. Note that: you only need to reply me a score (such as 7) and nothing else.",
+                },
+            ],
+        },
+    ]
 
 
 def build_cot_conversation(target_text, wav_path_a, wav_path_b):
